@@ -31,7 +31,7 @@ public class WineController {
         return new ResponseEntity<>(wine, HttpStatus.OK);
     }
 
-    @PostMapping("register")
+    @PostMapping("add")
     public  ResponseEntity<String> addWine(@RequestBody Wine wine) {
         log.info("CONTROLLER: addWine");
         wineService.addWine(wine);
