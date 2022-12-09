@@ -7,7 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.cybage.winepark.service.WineServiceImpl;
+import com.cybage.winepark.dto.WineDto;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class WineController {
     WineService wineService;
+    WineServiceImpl wineServiceImpl;
 
     @GetMapping("getAllWines")
     public ResponseEntity<List<Wine>> getAllWines() {
@@ -32,15 +34,17 @@ public class WineController {
     }
 
     @PostMapping("add")
-    public  ResponseEntity<String> addWine(@RequestBody Wine wine) {
+    public  ResponseEntity<String> addWine(@RequestBody WineDto wineDto) {
         log.info("CONTROLLER: addWine");
+        Wine wine=wineServiceImpl.wineDtoToWine(wineDto);
         wineService.addWine(wine);
         return new ResponseEntity<>("wine added successfully...", HttpStatus.OK);
     }
 
     @PutMapping("updateWine/{id}")
-    public  ResponseEntity<String> updateWine(@PathVariable("id") Integer id,@RequestBody Wine wine) {
+    public  ResponseEntity<String> updateWine(@PathVariable("id") Integer id,@RequestBody WineDto wineDto) {
         log.info("CONTROLLER: updateWine");
+        Wine wine=wineServiceImpl.wineDtoToWine(wineDto);
         wine.setWineId(id);
         wineService.updateWine(wine);
         return new ResponseEntity<>("wine updated successfully...", HttpStatus.OK);

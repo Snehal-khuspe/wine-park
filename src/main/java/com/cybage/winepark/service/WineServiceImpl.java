@@ -1,8 +1,10 @@
 package com.cybage.winepark.service;
 
+import com.cybage.winepark.dto.WineDto;
 import com.cybage.winepark.repository.WineRepository;
 import com.cybage.winepark.domain.Wine;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +37,14 @@ public class WineServiceImpl implements WineService {
     @Override
     public void deleteWine(Integer wineId) {
         wineRepository.deleteById(wineId);
+    }
+
+    public Wine wineDtoToWine(WineDto wineDto){
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(wineDto, Wine.class);
+    }
+    public WineDto wineToWineDto(Wine wine){
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(wine, WineDto.class);
     }
 }
