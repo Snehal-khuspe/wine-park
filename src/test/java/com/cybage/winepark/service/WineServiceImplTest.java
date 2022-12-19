@@ -58,19 +58,6 @@ class WineServiceImplTest {
     }
 
     @Test
-    @Disabled //n
-    void testUpdateWine() {
-//        Wine wine1 = new Wine(1, 2, "red", "sula", 200.00);
-
-        Wine wine2 =wineRepository.findByWineId(1);
-        wine2.setPrice(1000.00);
-        wineRepository.save(wine2);
-        Wine updatedWine = wineRepository.findByWineId(1);
-        assertThat(updatedWine.getPrice()).isEqualTo(1000.00);
-
-    }
-
-    @Test
     void testDeleteWine() {
         wineRepository.deleteById(1);
         assertThat(wineServiceImpl.getWineById(1)).isNull();
