@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -18,15 +19,17 @@ class WineServiceImplTest {
     @Mock
     private WineRepository wineRepository;
     private WineServiceImpl wineServiceImpl;
+    Wine wine;
 
     @BeforeEach
     void setUp() {
         wineServiceImpl=new WineServiceImpl(wineRepository);
+        wine = new Wine(1, 2, "red", "sula", 200.00);
     }
 
 
     @Test
-    void getAllWines() {
+    void testGetAllWines() {
         //when
         wineServiceImpl.getAllWines();
         //then
@@ -34,14 +37,15 @@ class WineServiceImplTest {
     }
 
     @Test
-    @Disabled
-    void getWineById() {
+    void testGetWineById() {
+        Mockito.when(wineRepository.findByWineId(1)).thenReturn(wine);
+        assertThat(wineServiceImpl.getWineById(1)).isEqualTo(wine);
     }
 
     @Test
-    void addWine() {
+    void testAddWine() {
         //given
-        Wine wine = new Wine(1, 2, "red", "sula", 200.00);
+//        Wine wine = new Wine(1, 2, "red", "sula", 200.00);
         //when
         wineServiceImpl.addWine(wine);
         //then
@@ -54,20 +58,21 @@ class WineServiceImplTest {
     }
 
     @Test
-    void updateWine() {
-        //given
-        Wine wine = new Wine(1, 2, "red", "sula", 200.00);
-        //when
-        wineServiceImpl.addWine(wine);
-        //then
-        ArgumentCaptor<Wine> wineArgumentCaptor= ArgumentCaptor.forClass(Wine.class);
-        verify(wineRepository).save(wineArgumentCaptor.capture());
-        Wine capturedWine= wineArgumentCaptor.getValue();
-        assertThat(capturedWine).isEqualTo(wine);
+    @Disabled //n
+    void testUpdateWine() {
+//        Wine wine1 = new Wine(1, 2, "red", "sula", 200.00);
+
+        Wine wine2 =wineRepository.findByWineId(1);
+        wine2.setPrice(1000.00);
+        wineRepository.save(wine2);
+        Wine updatedWine = wineRepository.findByWineId(1);
+        assertThat(updatedWine.getPrice()).isEqualTo(1000.00);
+
     }
 
     @Test
-    @Disabled
-    void deleteWine() {
+    void testDeleteWine() {
+        wineRepository.deleteById(1);
+        assertThat(wineServiceImpl.getWineById(1)).isNull();
     }
 }

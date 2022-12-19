@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 @Service
@@ -46,5 +48,18 @@ public class WineServiceImpl implements WineService {
     public WineDto wineToWineDto(Wine wine){
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(wine, WineDto.class);
+    }
+    public String getOperatingSystemInfo()  {
+        String os = System.getProperty("os.name");
+        InetAddress addr= null;
+        try {
+            addr = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        assert addr != null;
+        String hostName=addr.getHostName();
+        String hostAddress=addr.getHostAddress();
+        return "Host OS: " + os +", Host Name: " +hostName+", Host IP: " +hostAddress;
     }
 }
