@@ -2,7 +2,7 @@
   spring:
    datasource:
      driver-class-name: com.mysql.cj.jdbc.Driver
-     url: jdbc:mysql://54.147.37.162:3306/wine
+     url: jdbc:mysql://54.147.37.162:3306/wine_park
      username: kamlesh
      password: manager
    jpa:
