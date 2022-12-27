@@ -3,7 +3,7 @@
    datasource:
      driver-class-name: com.mysql.cj.jdbc.Driver
      url: jdbc:mysql://34.230.80.199:3306/wine
-     username: kamlesh
+     username: aish
      password: manager
    jpa:
      hibernate:
