@@ -3,8 +3,8 @@
    datasource:
      driver-class-name: com.mysql.cj.jdbc.Driver
      url: jdbc:mysql://54.147.1.215:3306/wine
-     username: root
-     password: root
+     username: ctg
+     password: devops
    jpa:
      hibernate:
        ddl-auto: update
