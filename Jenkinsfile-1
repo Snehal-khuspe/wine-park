@@ -10,7 +10,7 @@ pipeline {
         COSIGN_PASSWORD=credentials('cosign-password')
         AWS_CREDENTIALS = credentials('aws-credentials')
         //COSIGN_PRIVATE_KEY = credentials('cosign-private-key')
-        COSIGN_PRIVATE_KEY = ${env.COSIGN_PRIVATE_KEY}
+        COSIGN_PRIVATE_KEY = "${env.COSIGN_PRIVATE_KEY}"
     }
     
     stages {
